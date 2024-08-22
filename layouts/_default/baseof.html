@@ -28,6 +28,8 @@
 {{- block "footer" . -}}{{ end }}
 {{- partial "scroll-to-top.html" . }}
 {{- $main := resources.Get "js/main.js" -}}
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
 {{- if .Site.Params.code_copy_button | default true -}}
 	{{ $codeCopy := resources.Get "js/code-copy.js" -}}
 	{{ $script := slice $main $codeCopy | resources.Concat "js/bundle.js" | minify | fingerprint -}}

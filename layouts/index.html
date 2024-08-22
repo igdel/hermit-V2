@@ -1,32 +1,128 @@
 {{ define "head" }}
-	{{ if .Site.Params.bgImg -}}
-	<style>.bg-img {background-image: url('{{.Site.Params.bgImg}}');}</style>
-	{{- else if .Site.Params.images -}}
-		{{- range first 1 .Site.Params.images -}}
-		<style>.bg-img {background-image: url('{{. | absURL}}');}</style>
-		{{- end -}}
-	{{- end -}}
+<!-- Calendly widget CSS and JS -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<style>
+	html, body {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		font-size: 16px; /* Base font size */
+	}
+	.centered-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		width: 100%;
+		padding: 1rem;
+		box-sizing: border-box;
+	}
+	.content-wrapper {
+		text-align: center;
+		max-width: 600px;
+		width: 100%;
+	}
+	.logo-container {
+		width: 30%;
+		max-width: 150px;
+		margin: 0 auto 2rem;
+	}
+	.logo-image {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+	#home-title {
+		font-size: 2.5em;
+		margin-bottom: 0.5em;
+	}
+	#home-subtitle {
+		font-size: 1.3rem;
+		margin-bottom: 1.5em;
+	}
+	#home-social {
+		font-size: 1.5em;
+		margin-bottom: 1.5em;
+	}
+	#home-nav {
+		font-size: 1.1em;
+		margin-bottom: 1.5em;
+	}
+	#home-content {
+		font-size: 1em;
+	}
+	#home-footer {
+		margin-top: 2em;
+		font-size: 0.9em;
+	}
+	/* Responsive adjustments */
+	@media (max-width: 768px) {
+		html, body {
+			font-size: 14px;
+		}
+		.logo-container {
+			width: 25%;
+			max-width: 100px;
+		}
+		#home-title {
+			font-size: 2em;
+		}
+		#home-subtitle {
+			font-size: 1.1em;
+		}
+	}
+	@media (max-width: 480px) {
+		html, body {
+			font-size: 12px;
+		}
+		.logo-container {
+			width: 20%;
+			max-width: 80px;
+		}
+		#home-title {
+			font-size: 1.8em;
+		}
+		#home-subtitle {
+			font-size: 1em;
+		}
+	}
+	/* Ensure buttons and interactive elements are easy to tap on mobile */
+	button, .button, a {
+		min-height: 44px;
+		min-width: 44px;
+		padding: 0.5em 1em;
+	}
+</style>
 {{ end }}
 
 {{ define "main" }}
-	{{- if (or .Site.Params.images .Site.Params.bgImg) }}
-	<div class="bg-img"></div>
-	{{- end }}
-	<div id="spotlight" class="animated fadeIn">
+<div class="centered-container">
+	<div class="content-wrapper">
+		{{- $image := .Params.image | default .Site.Params.image }}
+		{{- if $image }}
+		<div class="logo-container">
+			<img src="{{ $image }}" alt="Logo" class="logo-image">
+		</div>
+		{{- end }}
 		<div id="home-center">
-			<h1 id="home-title">{{ .Site.Title }}</h1>
-			{{- with .Site.Params.homeSubtitle }}
+			<h1 id="home-title">{{ .Params.title | default .Site.Title }}</h1>
+			{{- with .Params.subtitle | default .Site.Params.homeSubtitle }}
 			<p id="home-subtitle">{{.}}</p>
 			{{- end }}
-			{{- with .Site.Params.socialLinks }}
+			{{- with .Params.socialLinks | default .Site.Params.socialLinks }}
 			<div id="home-social">
-				{{ partialCached "social-icons.html" . }}
+				{{ partial "social-icons.html" . }}
 			</div>
 			{{- end }}
 			<nav id="home-nav" class="site-nav">
-				{{ partialCached "menu.html" . }}
+				{{ partial "menu.html" . }}
 			</nav>
+			<div id="home-content">
+				{{ .Content }}
+			</div>
 		</div>
-		<div id="home-footer">{{ partialCached "single-footer.html" . }}</div>
+		<div id="home-footer">{{ partial "single-footer.html" . }}</div>
 	</div>
+</div>
 {{ end }}
