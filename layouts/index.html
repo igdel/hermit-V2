@@ -26,7 +26,7 @@
 	.logo-container {
 		width: 30%;
 		max-width: 150px;
-		margin: 0 auto 2rem;
+		margin: 0 auto 1rem; /* Slightly reduced bottom margin */
 	}
 	.logo-image {
 		width: 100%;
@@ -35,25 +35,48 @@
 	}
 	#home-title {
 		font-size: 2.5em;
-		margin-bottom: 0.5em;
+		margin-bottom: 0.2em; /* Reduced margin */
 	}
 	#home-subtitle {
 		font-size: 1.3rem;
-		margin-bottom: 1.5em;
+		margin-bottom: 0.5em; /* Reduced margin */
 	}
 	#home-social {
 		font-size: 1.5em;
-		margin-bottom: 1.5em;
+		margin-bottom: 0.5em; /* Reduced margin */
 	}
 	#home-nav {
 		font-size: 1.1em;
-		margin-bottom: 1.5em;
+		margin-bottom: 0.5em; /* Reduced margin */
+	}
+	#home-nav ul {
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+	}
+	#home-nav li {
+		display: inline-block;
+		margin: 0 0.5em;
+	}
+	#home-nav a {
+		text-decoration: none;
+		padding: 0.3em 0.5em;
 	}
 	#home-content {
 		font-size: 1em;
+		margin-top: 0; /* Removed top margin */
+	}
+	/* Calendly button specific style (adjusted) */
+	.calendly-inline-widget,
+	.calendly-inline-widget ~ * {
+		margin-top: 0 !important; /* Removed top margin */
+	}
+	/* If using a custom Calendly button, you can add this style */
+	.calendly-button {
+		margin-top: 0;
 	}
 	#home-footer {
-		margin-top: 2em;
+		margin-top: 1.5em; /* Maintained bottom spacing */
 		font-size: 0.9em;
 	}
 	/* Responsive adjustments */
@@ -64,12 +87,16 @@
 		.logo-container {
 			width: 25%;
 			max-width: 100px;
+			margin-bottom: 0.8rem;
 		}
 		#home-title {
 			font-size: 2em;
 		}
 		#home-subtitle {
 			font-size: 1.1em;
+		}
+		#home-nav li {
+			margin: 0 0.3em;
 		}
 	}
 	@media (max-width: 480px) {
@@ -79,12 +106,16 @@
 		.logo-container {
 			width: 20%;
 			max-width: 80px;
+			margin-bottom: 0.6rem;
 		}
 		#home-title {
 			font-size: 1.8em;
 		}
 		#home-subtitle {
 			font-size: 1em;
+		}
+		#home-nav li {
+			margin: 0 0.2em;
 		}
 	}
 	/* Ensure buttons and interactive elements are easy to tap on mobile */
@@ -97,6 +128,7 @@
 {{ end }}
 
 {{ define "main" }}
+<!-- Main content remains unchanged -->
 <div class="centered-container">
 	<div class="content-wrapper">
 		{{- $image := .Params.image | default .Site.Params.image }}
