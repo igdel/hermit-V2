@@ -435,6 +435,15 @@ p.img-404 {
 
   a {
     margin: 0 .2em;
+
+    svg {
+      transition: fill 0.3s ease;
+    }
+
+    &:hover svg,
+    &:active svg {
+      stroke: #0066CC;
+    }
   }
 }
 
@@ -460,7 +469,7 @@ p.img-404 {
     }
 
     &:hover::after {
-      transform: scaleX(1);
+      transform: scaleX(0.73);
     }
   }
 }
